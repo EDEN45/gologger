@@ -5,6 +5,8 @@ import (
 	"io"
 )
 
+const defaultErrorMessage = `{"message": "Ошибка записи лога", "err": "%s", "name": "%s"}`
+
 type NameWriter interface {
 	io.Writer
 	Name() string
@@ -20,8 +22,8 @@ func New(file NameWriter) *Write {
 	}
 }
 
-func (s *Write) Write(str string) {
-	if _, err := s.writer.Write([]byte(str)); err != nil {
-		fmt.Printf(`{"message": "Ошибка записи лога", "err": "%s", "name": "%s"}`, err.Error(), s.writer.Name())
+func (s *Write) Write(str []byte) {
+	if _, err := s.writer.Write(str); err != nil {
+		fmt.Printf(defaultErrorMessage, err.Error(), s.writer.Name())
 	}
 }

@@ -46,7 +46,7 @@ func TestNew(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			w := New(tt.args.file)
 
-			w.Write("Test1")
+			w.Write([]byte("Test1"))
 
 			if tt.args.file.a != "Test1" {
 				t.Error("Пошел нахуй")
